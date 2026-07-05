@@ -17,6 +17,12 @@ Fork do [ani-cli](https://github.com/pystardust/ani-cli) com integração nativa
 ## Instalação
 
 ```sh
+curl -fsSL https://raw.githubusercontent.com/levyvix/ani-cli-anilist/master/install.sh | sh
+```
+
+Ou manualmente:
+
+```sh
 git clone https://github.com/levyvix/ani-cli-anilist
 sudo cp ani-cli-anilist/ani-cli /usr/local/bin/ani-cli
 ```
