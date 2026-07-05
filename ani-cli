@@ -153,7 +153,7 @@ anilist_get_list() {
             .data.MediaListCollection.lists[]?.entries[]? |
             [
                 (.mediaId | tostring),
-                (.media.title.romaji // .media.title.english // "Unknown"),
+                (.media.title.english // .media.title.romaji // "Unknown"),
                 (.progress | tostring),
                 ((.media.episodes // 0) | tostring)
             ] | join("\t")
@@ -246,7 +246,7 @@ anilist_new_episodes() {
 
         select($r.show) |
 
-        ($e.media.title.romaji // $e.media.title.english // "Unknown") as $title |
+        ($e.media.title.english // $e.media.title.romaji // "Unknown") as $title |
         (if $r.behind == 1 then "(\($r.behind) atrasado)" else "(\($r.behind) atrasados)" end) as $tag |
         [
             ($tag + " " + $title + " - " + $r.nextLabel + " - você assistiu \($prog)"),
@@ -298,8 +298,8 @@ anilist_menu() {
     [ -z "$_selected" ] && exit 0
 
     _query=$(printf "%s" "$_selected" | cut -f1 | sed "s| |+|g")
-    _anilist_media_id=$(printf "%s" "$_selected" | cut -f4)
-    _progress=$(printf "%s" "$_selected" | cut -f5)
+    _anilist_media_id=$(printf "%s" "$_selected" | cut -f3)
+    _progress=$(printf "%s" "$_selected" | cut -f4)
     _next_ep=$((_progress + 1))
     export ANILIST_MEDIA_ID="$_anilist_media_id"
     exec "$0" -e "$_next_ep" "$_query"
